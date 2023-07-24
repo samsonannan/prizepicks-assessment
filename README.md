@@ -37,9 +37,11 @@ $ docker-compose --env-file .env up
 
 ![image](./assets/asset-1.png)
 
+
 - Once both services are running, go to http://localhost:8080/swagger/index.html to view API docs
   
 ![image](./assets/asset-2.png)
+
 
 - Open a new terminal and run the following cURL commands. ID will be unique for every output
   
