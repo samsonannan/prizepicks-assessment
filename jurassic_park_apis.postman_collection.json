@@ -1,0 +1,673 @@
+{
+	"info": {
+		"_postman_id": "40fab875-a435-44d6-affc-fe628ec435be",
+		"name": "Jurassic Park APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27402392"
+	},
+	"item": [
+		{
+			"name": "Cages",
+			"item": [
+				{
+					"name": "Create Cage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"capacity\": 5,\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Cage Active",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"capacity\": 10,\n  \"status\": \"DOWN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Cage Down",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"capacity\": 10,\n  \"status\": \"DOWN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Cage Down No Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"capacity\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Cage Down No Capacity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cages",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cages Status Active",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages?status=active",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cages Status Down",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages?status=down",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "down"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cages Status Invalid",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages?status=off",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "off"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cage By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/0adc0f9f-283b-40dd-892b-b9fb2ac4448d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"0adc0f9f-283b-40dd-892b-b9fb2ac4448d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cage Dinosaur",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"group\": \"HERBIVORE\",\n  \"name\": \"test-herbivore-1\",\n  \"species\": \"Stegosaurus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/6690a2ef-e1ea-4e75-a61a-1d06479671cc/dinosaur",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"6690a2ef-e1ea-4e75-a61a-1d06479671cc",
+								"dinosaur"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cage Dinosaur No Group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"test-herbivore-2\",\n  \"species\": \"Stegosaurus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/6690a2ef-e1ea-4e75-a61a-1d06479671cc/dinosaur",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"6690a2ef-e1ea-4e75-a61a-1d06479671cc",
+								"dinosaur"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cage Dinosaur No Species",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"test-herbivore-2\",\n  \"group\": \"HERBIVORE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/6690a2ef-e1ea-4e75-a61a-1d06479671cc/dinosaur",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"6690a2ef-e1ea-4e75-a61a-1d06479671cc",
+								"dinosaur"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cage Dinosaur No Name",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"group\": \"HERBIVORE\",\n  \"species\": \"Stegosaurus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/6690a2ef-e1ea-4e75-a61a-1d06479671cc/dinosaur",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"6690a2ef-e1ea-4e75-a61a-1d06479671cc",
+								"dinosaur"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cage",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"capacity\": 9,\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/e737c00d-1863-47f0-a026-022c6756336c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"e737c00d-1863-47f0-a026-022c6756336c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dinosaurs",
+			"item": [
+				{
+					"name": "Update Dinosaur",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test-carnivore-1-updated-1\",\n    \"group\": \"carnivore\",\n    \"cage_id\": \"fbd521c1-d33d-41e6-919c-706ce6fd564b\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/dinosaurs/0d9f20de-b624-4fee-b11c-d2532ec860ff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"dinosaurs",
+								"0d9f20de-b624-4fee-b11c-d2532ec860ff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dinosaurs",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dinosaur By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/dinosaurs/ec6a2abb-7f5a-48c6-992e-eaefc9b969b4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"dinosaurs",
+								"ec6a2abb-7f5a-48c6-992e-eaefc9b969b4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dinosaurs By Cage Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/64e14a56-6f0b-4722-8715-331d215c08ee/dinosaurs",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"64e14a56-6f0b-4722-8715-331d215c08ee",
+								"dinosaurs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dinosaurs By Cage Id Species",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACTIVE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/cages/6690a2ef-e1ea-4e75-a61a-1d06479671cc/dinosaurs?species=brachiosaurus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"cages",
+								"6690a2ef-e1ea-4e75-a61a-1d06479671cc",
+								"dinosaurs"
+							],
+							"query": [
+								{
+									"key": "species",
+									"value": "brachiosaurus"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cage By Dinosaur ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/dinosaurs/202907a0-87af-433f-bb6f-9be8023e1903/cage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"dinosaurs",
+								"202907a0-87af-433f-bb6f-9be8023e1903",
+								"cage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
