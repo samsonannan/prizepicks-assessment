@@ -33,9 +33,11 @@ $ cd prizepicks-assessment
 # docker-compose env file provided containing ${POSTGRES_USER} ${POSTGRES_PASSWORD}
 $ docker-compose --env-file .env up
 ```
+
 ![image](./assets/asset-1.png)
 
 - Once both services are running, go to http://localhost:8080/swagger/index.html to view API docs
+  
 ![image](./assets/asset-2.png)
 
 - Open a new terminal and run the following cURL commands. ID will be unique for every output
@@ -152,7 +154,7 @@ Overall, the Gin and Ent combination provides a powerful and efficient way to bu
 
 ### Postman Collection
 
-All testcases and examples are provided in a postman collection JSON file `Jurassic Park APIs.postman_collection.json`. Input data, query parameters and/or request payloads can be modified based on usecase. Can be imported into Postman
+All testcases and examples are provided in a postman collection JSON file `jurassic_park_apis.postman_collection.json`. Input data, query parameters and/or request payloads can be modified based on usecase. Can be imported into Postman
 
 ### Note
 
