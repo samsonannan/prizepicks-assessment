@@ -30,7 +30,8 @@ $ git clone github.com/samsonannan/prizepicks-assessment
 $ cd prizepicks-assessment
 
 # postgres db running on default port:5432
-# docker-compose env file provided containing ${POSTGRES_USER} ${POSTGRES_PASSWORD}
+# docker-compose env file provided containing ${POSTGRES_USER} ${POSTGRES_HOST} ${POSTGRES_PASSWORD}
+# modify .env file if configurations differ
 $ docker-compose --env-file .env up
 ```
 
