@@ -647,7 +647,7 @@ const docTemplate = `{
                     ]
                 },
                 "group": {
-                    "description": "Group defines eating class based on species i.e HERBIVORE, CARNIVORE",
+                    "description": "group defines eating class based on species i.e HERBIVORE, CARNIVORE",
                     "allOf": [
                         {
                             "$ref": "#/definitions/dinosaur.Group"
@@ -655,15 +655,15 @@ const docTemplate = `{
                     ]
                 },
                 "id": {
-                    "description": "ID of the ent.\nUnique UUID for each dinosaur entity",
+                    "description": "ID of the ent.\nunique uuid for each dinosaur entity",
                     "type": "string"
                 },
                 "name": {
-                    "description": "Name of dinosaur. Must not be empty",
+                    "description": "name of dinosaur. must not be empty",
                     "type": "string"
                 },
                 "species": {
-                    "description": "Species dinosaur belongs. Must not be empty",
+                    "description": "species dinosaur belongs. must not be empty",
                     "type": "string"
                 },
                 "updated_at": {

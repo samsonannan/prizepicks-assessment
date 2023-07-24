@@ -70,17 +70,17 @@ definitions:
       group:
         allOf:
         - $ref: '#/definitions/dinosaur.Group'
-        description: Group defines eating class based on species i.e HERBIVORE, CARNIVORE
+        description: group defines eating class based on species i.e HERBIVORE, CARNIVORE
       id:
         description: |-
           ID of the ent.
-          Unique UUID for each dinosaur entity
+          unique uuid for each dinosaur entity
         type: string
       name:
-        description: Name of dinosaur. Must not be empty
+        description: name of dinosaur. must not be empty
         type: string
       species:
-        description: Species dinosaur belongs. Must not be empty
+        description: species dinosaur belongs. must not be empty
         type: string
       updated_at:
         description: UpdatedAt holds the value of the "updated_at" field.
