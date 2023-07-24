@@ -28,7 +28,7 @@ var (
 		{Name: "id", Type: field.TypeUUID, Unique: true},
 		{Name: "created_at", Type: field.TypeTime},
 		{Name: "updated_at", Type: field.TypeTime},
-		{Name: "name", Type: field.TypeString},
+		{Name: "name", Type: field.TypeString, Unique: true},
 		{Name: "species", Type: field.TypeString},
 		{Name: "group", Type: field.TypeEnum, Enums: []string{"HERBIVORE", "CARNIVORE"}},
 		{Name: "cage_id", Type: field.TypeUUID, Nullable: true},

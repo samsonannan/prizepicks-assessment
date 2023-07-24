@@ -27,6 +27,7 @@ func (Dinosaur) Fields() []ent.Field {
 			Comment("unique uuid for each dinosaur entity"),
 		field.String("name").
 			NotEmpty().
+			Unique().
 			Comment("name of dinosaur. must not be empty"),
 		field.String("species").
 			NotEmpty().
