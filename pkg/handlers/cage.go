@@ -263,7 +263,7 @@ func CageDinosaur(ctx *gin.Context) {
 
 	// Check if the cage is empty (size == 0). If it is, the dinosaur can be added directly.
 	if size == 0 {
-		runQuery(ctx, mod, targetCage) // Run the query
+		runCageHandlerQuery(ctx, mod, targetCage) // Run the query
 		return
 	}
 
@@ -277,13 +277,13 @@ func CageDinosaur(ctx *gin.Context) {
 
 	// Check if the species of the new dinosaur matches the neighbor's species.
 	if strings.EqualFold(request.Species, neighbor.Species) {
-		runQuery(ctx, mod, targetCage) // Run the query
+		runCageHandlerQuery(ctx, mod, targetCage) // Run the query
 		return
 	}
 
 	// Check if the new dinosaur is a herbivore and the neighbor is also a herbivore.
 	if grp == dinosaur.GroupHERBIVORE && neighbor.Group == grp {
-		runQuery(ctx, mod, targetCage) // Run the query
+		runCageHandlerQuery(ctx, mod, targetCage) // Run the query
 		return
 	}
 
@@ -443,7 +443,7 @@ func EditCage(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, models.CageSuccessResponse(updatedCage))
 }
 
-func runQuery(ctx *gin.Context, mod *ent.DinosaurCreate, targetCage *ent.Cage) {
+func runCageHandlerQuery(ctx *gin.Context, mod *ent.DinosaurCreate, targetCage *ent.Cage) {
 	dino, err := mod.Save(ctx)
 	if err != nil {
 		logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to add dinosaur to cage", "err", err.Error())
