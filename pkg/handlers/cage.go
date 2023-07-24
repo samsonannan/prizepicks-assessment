@@ -9,6 +9,7 @@ import (
 	validation "github.com/go-ozzo/ozzo-validation"
 	"github.com/google/uuid"
 	"github.com/samsonannan/prizepicks-assessment/pkg/db"
+	"github.com/samsonannan/prizepicks-assessment/pkg/ent"
 	"github.com/samsonannan/prizepicks-assessment/pkg/ent/cage"
 	"github.com/samsonannan/prizepicks-assessment/pkg/ent/dinosaur"
 	"github.com/samsonannan/prizepicks-assessment/pkg/logger"
@@ -135,7 +136,7 @@ func GetDinosaursByCageId(ctx *gin.Context) {
 	}
 
 	// Get the initial builder query for the Cage entity.
-	builderQuery := db.PostgresClient.Cage.Query().Where(cage.ID(u)).QueryDinosaurs().WithCage()
+	builderQuery := db.PostgresClient.Cage.Query().Where(cage.ID(u)).QueryDinosaurs()
 
 	// Get the query parameters from the request URL.
 	query := ctx.Request.URL.Query()
@@ -262,22 +263,7 @@ func CageDinosaur(ctx *gin.Context) {
 
 	// Check if the cage is empty (size == 0). If it is, the dinosaur can be added directly.
 	if size == 0 {
-		dino, err := mod.Save(ctx)
-		if err != nil {
-			logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to add dinosaur to cage", "err", err.Error())
-			ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
-			return
-		}
-
-		// Update the cage size to add the new dinosaur.
-		_, err = targetCage.Update().AddSize(1).Save(ctx)
-		if err != nil {
-			logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to update size of cage", "err", err.Error())
-			ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
-			return
-		}
-
-		ctx.JSON(http.StatusOK, models.DinosaurSuccessResponse(dino))
+		runQuery(ctx, mod, targetCage) // Run the query
 		return
 	}
 
@@ -291,43 +277,13 @@ func CageDinosaur(ctx *gin.Context) {
 
 	// Check if the species of the new dinosaur matches the neighbor's species.
 	if strings.EqualFold(request.Species, neighbor.Species) {
-		dino, err := mod.Save(ctx)
-		if err != nil {
-			logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to add dinosaur to cage", "err", err.Error())
-			ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
-			return
-		}
-
-		// Update the cage size to add the new dinosaur.
-		_, err = targetCage.Update().AddSize(1).Save(ctx)
-		if err != nil {
-			logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to update size of cage", "err", err.Error())
-			ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
-			return
-		}
-
-		ctx.JSON(http.StatusOK, models.DinosaurSuccessResponse(dino))
+		runQuery(ctx, mod, targetCage) // Run the query
 		return
 	}
 
 	// Check if the new dinosaur is a herbivore and the neighbor is also a herbivore.
 	if grp == dinosaur.GroupHERBIVORE && neighbor.Group == grp {
-		dino, err := mod.Save(ctx)
-		if err != nil {
-			logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to add dinosaur to cage", "err", err.Error())
-			ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
-			return
-		}
-
-		// Update the cage size to add the new dinosaur.
-		_, err = targetCage.Update().AddSize(1).Save(ctx)
-		if err != nil {
-			logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to update size of cage", "err", err.Error())
-			ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
-			return
-		}
-
-		ctx.JSON(http.StatusOK, models.DinosaurSuccessResponse(dino))
+		runQuery(ctx, mod, targetCage) // Run the query
 		return
 	}
 
@@ -485,4 +441,23 @@ func EditCage(ctx *gin.Context) {
 
 	// Respond with the details of the updated cage in the HTTP response.
 	ctx.JSON(http.StatusOK, models.CageSuccessResponse(updatedCage))
+}
+
+func runQuery(ctx *gin.Context, mod *ent.DinosaurCreate, targetCage *ent.Cage) {
+	dino, err := mod.Save(ctx)
+	if err != nil {
+		logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to add dinosaur to cage", "err", err.Error())
+		ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
+		return
+	}
+
+	// Update the cage size to add the new dinosaur.
+	_, err = targetCage.Update().AddSize(1).Save(ctx)
+	if err != nil {
+		logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to update size of cage", "err", err.Error())
+		ctx.JSON(http.StatusBadRequest, models.DinosaurErrorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, models.DinosaurSuccessResponse(dino))
 }
