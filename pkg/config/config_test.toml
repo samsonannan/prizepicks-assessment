@@ -1,0 +1,8 @@
+title = "Test Configurations"
+
+[postgres]
+host = "localhost"
+port = 5432
+user = "test"
+password = "test"
+database = "rest"
