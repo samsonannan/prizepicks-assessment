@@ -303,8 +303,6 @@ func EditDinosaur(ctx *gin.Context) {
 
 			// Check if the species of the new dinosaur matches the neighbor's species.
 			if strings.EqualFold(request.Species, neighbor.Species) {
-				mod.SetCage(targetCage)
-
 				dino, err := mod.Save(ctx)
 				if err != nil {
 					logger.SugaredLogger.Ctx(ctx).Errorw("failed to execute query to add dinosaur to cage", "err", err.Error())
