@@ -1,0 +1,550 @@
+basePath: /api/v1
+definitions:
+  cage.Status:
+    enum:
+    - ACTIVE
+    - ACTIVE
+    - DOWN
+    type: string
+    x-enum-varnames:
+    - DefaultStatus
+    - StatusACTIVE
+    - StatusDOWN
+  dinosaur.Group:
+    enum:
+    - HERBIVORE
+    - CARNIVORE
+    type: string
+    x-enum-varnames:
+    - GroupHERBIVORE
+    - GroupCARNIVORE
+  ent.Cage:
+    properties:
+      capacity:
+        description: capacity for each cage entity. defaults to zero
+        type: integer
+      created_at:
+        description: CreatedAt holds the value of the "created_at" field.
+        type: string
+      edges:
+        allOf:
+        - $ref: '#/definitions/ent.CageEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the CageQuery when eager-loading is set.
+      id:
+        description: |-
+          ID of the ent.
+          unique uuid for each cage entity
+        type: string
+      size:
+        description: number of dinosaurs held in cage. defaults to zero
+        type: integer
+      status:
+        allOf:
+        - $ref: '#/definitions/cage.Status'
+        description: status for cage entity. can be ACTIVE or DOWN only
+      updated_at:
+        description: UpdatedAt holds the value of the "updated_at" field.
+        type: string
+    type: object
+  ent.CageEdges:
+    properties:
+      dinosaurs:
+        description: Dinosaurs holds the value of the dinosaurs edge.
+        items:
+          $ref: '#/definitions/ent.Dinosaur'
+        type: array
+    type: object
+  ent.Dinosaur:
+    properties:
+      created_at:
+        description: CreatedAt holds the value of the "created_at" field.
+        type: string
+      edges:
+        allOf:
+        - $ref: '#/definitions/ent.DinosaurEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the DinosaurQuery when eager-loading is set.
+      group:
+        allOf:
+        - $ref: '#/definitions/dinosaur.Group'
+        description: Group defines eating class based on species i.e HERBIVORE, CARNIVORE
+      id:
+        description: |-
+          ID of the ent.
+          Unique UUID for each dinosaur entity
+        type: string
+      name:
+        description: Name of dinosaur. Must not be empty
+        type: string
+      species:
+        description: Species dinosaur belongs. Must not be empty
+        type: string
+      updated_at:
+        description: UpdatedAt holds the value of the "updated_at" field.
+        type: string
+    type: object
+  ent.DinosaurEdges:
+    properties:
+      cage:
+        allOf:
+        - $ref: '#/definitions/ent.Cage'
+        description: Cage holds the value of the cage edge.
+    type: object
+  models.CageRequest:
+    properties:
+      capacity:
+        description: Capacity holds a pointer to an 'int64' value, representing the
+          capacity of a cage.
+        type: integer
+      status:
+        description: Status holds a 'string' value, representing the status of a cage.
+        type: string
+    type: object
+  models.CageResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/ent.Cage'
+        description: Data holds a pointer to an 'ent.Cage' object, which represents
+          cage-related data.
+      error:
+        description: Error stores any error message in case of a failed request.
+        type: string
+      status:
+        description: Status indicates the success or failure of the request.
+        type: boolean
+    type: object
+  models.CagesResponse:
+    properties:
+      data:
+        description: Data contains a slice of pointers to 'ent.Cage' objects, which
+          hold the cage-related data.
+        items:
+          $ref: '#/definitions/ent.Cage'
+        type: array
+      error:
+        description: Error stores any error message in case of a failed request.
+        type: string
+      status:
+        description: Status indicates the success or failure of the request.
+        type: boolean
+    type: object
+  models.DinosaurRequest:
+    properties:
+      cage_id:
+        description: CageID holds the ID of the cage where the dinosaur resides (optional).
+        type: string
+      group:
+        description: Group holds the group of the dinosaur (optional).
+        type: string
+      name:
+        description: Name holds the name of the dinosaur.
+        type: string
+      species:
+        description: Species holds the species of the dinosaur.
+        type: string
+    type: object
+  models.DinosaurResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/ent.Dinosaur'
+        description: Data holds a pointer to an 'ent.Dinosaur' object, which represents
+          dinosaur-related data.
+      error:
+        description: Error stores any error message in case of a failed request.
+        type: string
+      status:
+        description: Status indicates the success or failure of the request.
+        type: boolean
+    type: object
+  models.DinosaursResponse:
+    properties:
+      data:
+        description: Data contains a slice of pointers to 'ent.Dinosaur' objects,
+          which hold the dinosaur-related data.
+        items:
+          $ref: '#/definitions/ent.Dinosaur'
+        type: array
+      error:
+        description: Error stores any error message in case of a failed request.
+        type: string
+      status:
+        description: Status indicates the success or failure of the request.
+        type: boolean
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a system to keep track of the different cages around the park
+    and the different dinosaurs in each one
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Jurrasic Park API
+  version: "1.0"
+paths:
+  /cages:
+    post:
+      consumes:
+      - application/json
+      description: Create a new cage entry.
+      parameters:
+      - description: create a new cage
+        in: body
+        name: cage
+        required: true
+        schema:
+          $ref: '#/definitions/models.CageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+      summary: Create Cage
+      tags:
+      - Cages
+  /cages/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a listing of cages. Can filter on power status
+      parameters:
+      - description: retrieve cage listing, filter on power status
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CagesResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+      summary: Get Cages
+      tags:
+      - Cages
+  /cages/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a cage by ID
+      parameters:
+      - description: retrieve a cage by id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+      summary: Get Cage By ID
+      tags:
+      - Cages
+    put:
+      consumes:
+      - application/json
+      description: Update details of cage entry by id
+      parameters:
+      - description: update cage details
+        in: body
+        name: cage
+        required: true
+        schema:
+          $ref: '#/definitions/models.CageRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+      summary: Update Cage
+      tags:
+      - Cages
+  /cages/{id}/dinosaur:
+    post:
+      consumes:
+      - application/json
+      description: Cage a dinosaur. CageID must be provided as destination
+      parameters:
+      - description: cage id for dinosaur
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: cage a dinosaur given a cage id
+        in: body
+        name: dinosaur
+        required: true
+        schema:
+          $ref: '#/definitions/models.DinosaurRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+      summary: Cage Dinosaur
+      tags:
+      - Cages
+  /cages/{id}/dinosaurs:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a listing of dinosaurs in a specific cage. Can filter
+        on attributes i.e. species or group
+      parameters:
+      - description: retrieve a list of dinosaurs by cage id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: retrieve dinosaur listing, filter on species
+        in: query
+        name: species
+        type: string
+      - description: retrieve dinosaur listing, filter on group i.e. HERBIVORE, CARNIVORE
+        in: query
+        name: group
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DinosaursResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+      summary: Get Dinosaurs By Cage ID
+      tags:
+      - Cages
+  /dinosaurs/:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a listing of dinosaurs. Can filter on attributes i.e.
+        species or group
+      parameters:
+      - description: retrieve dinosaur listing, filter on species
+        in: query
+        name: species
+        type: string
+      - description: retrieve dinosaur listing, filter on group i.e. herbivore, carnivore
+        in: query
+        name: group
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DinosaursResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+      summary: Get Dinosaurs
+      tags:
+      - Dinosaurs
+  /dinosaurs/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a dinosaur by ID
+      parameters:
+      - description: retrieve a dinosaur by id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+      summary: Get Dinosaur By ID
+      tags:
+      - Dinosaurs
+    put:
+      consumes:
+      - application/json
+      description: Updates information stored on a dinosaur. Can move dinosaur to
+        cage.
+      parameters:
+      - description: update dinosaur information
+        in: body
+        name: dinosaur
+        required: true
+        schema:
+          $ref: '#/definitions/models.DinosaurRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.DinosaurResponse'
+      summary: Update Dinosaur
+      tags:
+      - Dinosaurs
+  /dinosaurs/{id}/cage:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve the cage for dinosaur.
+      parameters:
+      - description: retrieve cage by dinosaur id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.CageResponse'
+      summary: Get Cage By Dinosaur ID
+      tags:
+      - Dinosaurs
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
