@@ -2,7 +2,7 @@
 
 ### Overview
 
-It's 1993 and you're the lead software developer for the new Jurassic Park! Park operations
+It's 1993 and you're the lead software developer for the new Jurassic Park! Park operations. Exciting times.
 needs a system to keep track of the different cages around the park and the different dinosaurs
 in each one. You'll need to develop a JSON formatted RESTful API to allow the builders to create
 new cages. It will also allow doctors and scientists the ability to edit/retrieve the statuses of
