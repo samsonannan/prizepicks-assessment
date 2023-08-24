@@ -28,6 +28,7 @@ func init() {
 	// Load database configuration data using the 'LoadDbConfig' function from the 'cfg' package.
 	config, err := cfg.LoadDbConfig("config")
 	if err != nil {
+		// return if fail
 		log.Fatalf("failed loading postgres configuration data: %v", err)
 	}
 
