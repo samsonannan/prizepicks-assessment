@@ -24,6 +24,7 @@ import (
 )
 
 func init() {
+	// Make change
 	// Load database configuration data using the 'LoadDbConfig' function from the 'cfg' package.
 	config, err := cfg.LoadDbConfig("config")
 	if err != nil {
